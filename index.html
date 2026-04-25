@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HSK 4 Complete Word List</title>
+<style>
+:root{--bg:#0d0d0f;--surface:#141418;--card:#1a1a20;--border:#2a2a35;--red:#e05252;--gold:#c9a84c;--blue:#5b8dd9;--green:#52b788;--text:#e8e2d9;--muted:#6b6578;--soft:#9b94a8}*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}#progressBar{height:2px;background:linear-gradient(90deg,var(--gold),var(--red));position:fixed;top:0;left:0;z-index:200}header{padding:2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,13,15,.96);backdrop-filter:blur(8px);z-index:100}.header-top{display:flex;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}.badge{background:var(--red);color:white;font-size:.62rem;letter-spacing:.14em;padding:.25rem .6rem;border-radius:3px;display:inline-block;margin-bottom:.5rem}h1{font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:600;line-height:1.1}h1 span{color:var(--gold);font-style:italic}.stats{display:flex;gap:1rem;font-size:.72rem;color:var(--muted);flex-wrap:wrap}.stats strong{color:var(--gold)}.controls{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}.search-wrap{flex:1;min-width:220px;max-width:430px}.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:.65rem .8rem;color:var(--text);outline:none}.search-wrap input:focus{border-color:var(--gold)}.filter-group{display:flex;gap:.4rem;flex-wrap:wrap}button{font-family:inherit}.filter-btn,.view-btn{background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);font-size:.68rem;padding:.45rem .75rem;cursor:pointer}.filter-btn:hover,.view-btn:hover{color:var(--text);border-color:var(--soft)}.filter-btn.active,.view-btn.active{background:var(--gold);color:#0d0d0f;border-color:var(--gold);font-weight:700}#resultCount{padding:.7rem 1.5rem;font-size:.72rem;color:var(--muted);max-width:1400px;margin:0 auto}#wordGrid{padding:1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.8rem;max-width:1400px;margin:0 auto}#wordGrid.list-view{grid-template-columns:1fr;max-width:880px}.word-card{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:1rem 1.1rem;cursor:pointer;position:relative;transition:.18s}.word-card:hover,.word-card.expanded{border-color:var(--gold);transform:translateY(-1px)}.card-top{display:flex;justify-content:space-between;gap:.5rem;padding-right:1.4rem}.cn-big{font-family:"Noto Serif SC","Microsoft YaHei",serif;font-size:1.65rem;font-weight:700;line-height:1.15}.word-num{color:var(--muted);font-size:.6rem}.py{color:var(--red);font-size:.75rem;margin:.35rem 0 .2rem}.en{color:var(--soft);font-size:.78rem;line-height:1.4}.card-bottom-row{display:flex;align-items:center;justify-content:space-between;margin-top:.55rem}.pos-tag{display:inline-block;font-size:.6rem;padding:.16rem .5rem;border-radius:20px;border:1px solid var(--muted);color:var(--muted)}.pos-v{border-color:var(--blue);color:var(--blue)}.pos-n{border-color:var(--green);color:var(--green)}.pos-adj,.pos-a{border-color:var(--gold);color:var(--gold)}.pos-adv,.pos-d{border-color:#b48ead;color:#b48ead}.pos-conj,.pos-c{border-color:#d08770;color:#d08770}.audio-btn{background:none;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-size:.75rem;padding:.2rem .48rem;cursor:pointer}.audio-btn:hover{background:var(--gold);color:#0d0d0f;border-color:var(--gold)}.studied-btn{position:absolute;top:.75rem;right:.75rem;border:0;background:transparent;cursor:pointer;opacity:.35;font-size:.82rem}.studied-btn.on,.studied-btn:hover{opacity:1}.expanded-panel{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}.word-card.expanded .expanded-panel{display:block}.ex-block{margin-bottom:.85rem}.ex-cn{font-family:"Noto Serif SC","Microsoft YaHei",serif;font-size:.98rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;line-height:1.45}.ex-py{color:var(--red);font-size:.7rem;margin-top:.2rem}.ex-en{color:var(--soft);font-size:.72rem;margin-top:.15rem}.empty-state{grid-column:1/-1;text-align:center;padding:4rem 1rem;color:var(--muted)}.error{max-width:900px;margin:2rem auto;padding:1rem;border:1px solid var(--red);color:var(--text);background:#211719;border-radius:8px;line-height:1.7}@media(max-width:600px){header{padding:1rem}#wordGrid{padding:1rem;grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="progressBar" style="width:0%"></div>
+<header>
+  <div class="header-top">
+    <div><div class="badge">COMPLETE REFERENCE</div><h1>HSK 4 <span>全词汇</span> Word List</h1></div>
+    <div class="stats"><span>📚 <strong id="totalCount">0</strong> words</span><span>✅ <strong id="studiedCount">0</strong> studied</span><span>🔊 Audio + examples</span></div>
+  </div>
+  <div class="controls">
+    <div class="search-wrap"><input id="searchInput" placeholder="Search Chinese, pinyin, or English..." oninput="filterWords()"></div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setPOS(this,'all')">All</button><button class="filter-btn" onclick="setPOS(this,'v')">Verb</button><button class="filter-btn" onclick="setPOS(this,'n')">Noun</button><button class="filter-btn" onclick="setPOS(this,'a')">Adj</button><button class="filter-btn" onclick="setPOS(this,'d')">Adv</button><button class="filter-btn" onclick="setPOS(this,'c')">Conj</button><button class="filter-btn" onclick="setPOS(this,'studied')">⭐ Studied</button>
+    </div>
+    <div><button class="view-btn active" onclick="setView(this,'grid')">⊞</button><button class="view-btn" onclick="setView(this,'list')">☰</button></div>
+  </div>
+</header>
+<div id="resultCount">Loading HSK 4 words...</div>
+<div id="wordGrid"></div>
+
+<script>
+const SOURCES = [
+  'https://raw.githubusercontent.com/drkameleon/complete-hsk-vocabulary/main/wordlists/exclusive/old/4.json',
+  'https://cdn.jsdelivr.net/gh/drkameleon/complete-hsk-vocabulary@main/wordlists/exclusive/old/4.json',
+  'https://raw.githubusercontent.com/drkameleon/complete-hsk-vocabulary/main/complete.json'
+];
+let words = [];
+let currentFilter = 'all';
+let currentSearch = '';
+let currentView = 'grid';
+let studied = JSON.parse(localStorage.getItem('hsk4_studied') || '[]');
+const exampleCache = {};
+
+function get(obj, keys){ for(const k of keys){ if(obj && obj[k] !== undefined) return obj[k]; } return undefined; }
+function normalizeEntry(item, idx){
+  const form = (item.forms || item.f || [])[0] || {};
+  const trans = form.transcriptions || form.i || {};
+  const meanings = form.meanings || form.m || item.meanings || item.en || item.translation || [];
+  const posRaw = item.pos || item.p || [];
+  const level = item.level || item.l || [];
+  return {
+    id: idx + 1,
+    cn: item.simplified || item.s || item.word || item.w || item.cn || '',
+    py: trans.pinyin || trans.y || item.pinyin || item.py || '',
+    en: Array.isArray(meanings) ? meanings.join('; ') : String(meanings || ''),
+    pos: Array.isArray(posRaw) ? posRaw.join('/') : String(posRaw || 'other'),
+    level: Array.isArray(level) ? level : [level]
+  };
+}
+async function loadWords(){
+  let lastError = '';
+  for(const url of SOURCES){
+    try{
+      const res = await fetch(url, {cache:'force-cache'});
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      let arr = Array.isArray(data) ? data : (data.words || data.data || []);
+      arr = arr.map(normalizeEntry).filter(w => w.cn);
+      if(url.includes('complete.json')) arr = arr.filter(w => w.level.includes('old-4') || w.level.includes('o4'));
+      const seen = new Set();
+      words = arr.filter(w => !seen.has(w.cn) && seen.add(w.cn)).map((w,i)=>({...w,id:i+1}));
+      if(words.length) { renderGrid(); return; }
+    }catch(e){ lastError = e.message; }
+  }
+  document.getElementById('wordGrid').innerHTML = `<div class="error">Could not load the HSK 4 list. Check internet connection, then refresh. Error: ${lastError}</div>`;
+}
+function escapeAttr(text){return String(text).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+function makeExamples(w){return [
+  {cn:`我正在学习“${w.cn}”这个词。`,py:`Wǒ zhèngzài xuéxí “${w.py}” zhège cí.`,en:`I am studying the word “${w.en}”.`},
+  {cn:`这个句子里可以用“${w.cn}”。`,py:`Zhège jùzi lǐ kěyǐ yòng “${w.py}”.`,en:`This sentence can use this word.`},
+  {cn:`我觉得“${w.cn}”是HSK4里很重要的词。`,py:`Wǒ juéde “${w.py}” shì HSK4 lǐ hěn zhòngyào de cí.`,en:`I think this is an important HSK 4 word.`}
+];}
+function getFiltered(){const q=currentSearch.toLowerCase().trim();return words.filter(w=>{const pos=String(w.pos||'');const matchPOS=currentFilter==='all'?true:currentFilter==='studied'?studied.includes(w.id):pos.includes(currentFilter);const matchSearch=!q||String(w.cn).includes(q)||String(w.py).toLowerCase().includes(q)||String(w.en).toLowerCase().includes(q);return matchPOS&&matchSearch;});}
+function renderGrid(){const grid=document.getElementById('wordGrid');grid.className=currentView==='list'?'list-view':'';const filtered=getFiltered();document.getElementById('resultCount').textContent=`Showing ${filtered.length} of ${words.length} words`;document.getElementById('totalCount').textContent=words.length;document.getElementById('studiedCount').textContent=studied.length;if(!filtered.length){grid.innerHTML='<div class="empty-state"><h2>找不到</h2><p>No words match your search.</p></div>';return;}grid.innerHTML=filtered.map(w=>{const isStudied=studied.includes(w.id);const posClass=String(w.pos||'other').split('/')[0];return `<div class="word-card" id="card_${w.id}" onclick="toggleCard(${w.id})"><button class="studied-btn ${isStudied?'on':''}" onclick="event.stopPropagation();toggleStudied(${w.id})">⭐</button><div class="card-top"><div class="cn-big">${w.cn}</div><div class="word-num">#${w.id}</div></div><div class="py">${w.py}</div><div class="en">${w.en}</div><div class="card-bottom-row"><span class="pos-tag pos-${posClass}">${w.pos}</span><button class="audio-btn" onclick="event.stopPropagation();speak('${escapeAttr(w.cn)}',0.75)">🔊</button></div><div class="expanded-panel" id="panel_${w.id}"><div class="ex-en">Click to show examples</div></div></div>`}).join('');}
+function toggleCard(id){const card=document.getElementById(`card_${id}`);const panel=document.getElementById(`panel_${id}`);const isOpen=card.classList.contains('expanded');document.querySelectorAll('.word-card.expanded').forEach(c=>c.classList.remove('expanded'));if(isOpen)return;card.classList.add('expanded');if(exampleCache[id]){panel.innerHTML=exampleCache[id];return;}const w=words.find(x=>x.id===id);const html=makeExamples(w).map(ex=>`<div class="ex-block"><div class="ex-cn">${ex.cn}<button class="audio-btn" onclick="event.stopPropagation();speak('${escapeAttr(ex.cn)}',0.75)">🔊</button></div><div class="ex-py">${ex.py}</div><div class="ex-en">${ex.en}</div></div>`).join('');exampleCache[id]=html;panel.innerHTML=html;}
+function speak(text,rate=.8){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=rate;const voices=window.speechSynthesis.getVoices();const cnVoice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('zh'));if(cnVoice)u.voice=cnVoice;window.speechSynthesis.speak(u);}if(window.speechSynthesis){window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();}
+function toggleStudied(id){studied=studied.includes(id)?studied.filter(x=>x!==id):[...studied,id];localStorage.setItem('hsk4_studied',JSON.stringify(studied));renderGrid();}
+function filterWords(){currentSearch=document.getElementById('searchInput').value;renderGrid();}
+function setPOS(el,pos){currentFilter=pos;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderGrid();}
+function setView(el,view){currentView=view;document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderGrid();}
+window.addEventListener('scroll',()=>{const max=document.body.scrollHeight-window.innerHeight;document.getElementById('progressBar').style.width=(max>0?(window.scrollY/max)*100:0)+'%';});
+loadWords();
+</script>
+</body>
+</html>
